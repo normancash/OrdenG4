@@ -2,9 +2,12 @@ package ni.edu.uam.orden.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import ni.edu.uam.orden.calculators.CalculatorNumero;
 import org.openxava.annotations.DefaultValueCalculator;
+import org.openxava.annotations.PropertyValue;
 import org.openxava.annotations.ReadOnly;
 import org.openxava.calculators.CurrentLocalDateCalculator;
+import org.openxava.calculators.CurrentMonthCalculator;
 import org.openxava.calculators.CurrentYearCalculator;
 
 import javax.persistence.Entity;
@@ -18,7 +21,9 @@ public class Orden extends BaseEntity {
     @ReadOnly
     private int anioFiscal;
 
-    private Long numero;
+    @DefaultValueCalculator(value= CalculatorNumero.class,
+           properties = @PropertyValue(name="anioFiscal"))
+    private Integer numero;
 
     @DefaultValueCalculator(CurrentLocalDateCalculator.class)
     @ReadOnly
